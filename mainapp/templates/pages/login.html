@@ -1,0 +1,13 @@
+{% extends 'layouts/main.html' %}
+{% block title %} - Login{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="container">
+        <div class="page-header">
+            <h1>Login Page</h1>
+            <p class="lead center"><a href="{{ url_for('authentication.login_google') }}"><img src="/static/img/btn_google_signin_dark_normal_web@2x.png" /></a></p>
+            <p></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

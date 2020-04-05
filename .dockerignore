@@ -1,0 +1,11 @@
+.git*
+.vscode*
+venv
+
+*.db
+__pycache__
+MANIFEST
+.DS_Store
+.env
+Procfile*
+pylintrc

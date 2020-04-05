@@ -1,0 +1,157 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title id="main_title">RSL Equip{% block title %}{% endblock %}</title>
+
+<!-- meta -->
+<meta name="description" content="">
+<meta name="author" content="">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- /meta -->
+
+<!-- styles -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<!-- Material Design Bootstrap -->
+<link href="/static/css/mdb.min.css" rel="stylesheet">
+<!-- Default App Styles -->
+<link href="/static/css/app.css" rel="stylesheet">
+<!-- Per-page Override styles -->
+{% block styles %}{% endblock %}
+<!-- /styles -->
+
+<!-- favicons -->
+<link rel="shortcut icon" href="/static/ico/favicon.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="/static/ico/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="/static/ico/favicon.png">
+<!-- /favicons -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-162866821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-162866821-1');
+</script>
+
+</head>
+<body>
+
+  <!-- Wrap all page content here -->
+  <div id="wrap">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('home') }}">RSLEquip</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item {% if request.endpoint == 'home' %}active{% endif %}"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+            <li class="nav-item {% if request.endpoint == 'site_documentation.about' %}active{% endif %}"><a class="nav-link" href="{{ url_for('site_documentation.about') }}">About</a></li>
+
+            {% if (current_user.is_authenticated and current_user.is_authenticated()) %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">{{ current_user.full_name }}<b class="caret"></b></a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item">Edit Profile</a>
+                <a class="dropdown-item">Settings</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ url_for('authentication.logout') }}">Log Out</a>
+              </div>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('authentication.login') }}">Log In</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+    </nav>
+
+    <!-- Begin page content -->
+    <main id="content" role="main" class="container">
+      <div id="late_alerts"></div>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          <a class="close" data-dismiss="alert">&times;</a>
+          {{ message }}
+          </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+      
+    </main>
+
+  </div>
+
+  <!--Footer-->
+  <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
+
+    <!--Footer Links-->
+    <div class="container-fluid text-center text-md-left">
+        <div class="row">
+
+            <!--First column
+            <div class="col-md-6">
+                <h5 class="text-uppercase">Footer Content</h5>
+                <p>Here you can use rows and columns here to organize your footer content.</p>
+            </div>
+            <!--/.First column-->
+
+            <!--Second column
+            <div class="col-md-6">
+                <h5 class="text-uppercase">Links</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#!">Link 1</a>
+                    </li>
+                    <li>
+                        <a href="#!">Link 2</a>
+                    </li>
+                    <li>
+                        <a href="#!">Link 3</a>
+                    </li>
+                    <li>
+                        <a href="#!">Link 4</a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.Second column-->
+        </div>
+    </div>
+    <!--/.Footer Links-->
+
+    <!--Copyright-->
+    <div class="footer-copyright py-3 text-center">
+<!--
+        © 2020 Copyright: lcroteau
+-->
+    </div>
+    <!--/.Copyright-->
+
+  </footer>
+  <!--/.Footer-->  
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="/static/js/mdb.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
