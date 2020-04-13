@@ -5,6 +5,8 @@ from mainapp import Base
 
 print('Initializing Database Variables')
 
+from mainapp.Models.account_data import Account
+from mainapp.Models.hero_data import Hero
 from mainapp.Models.user_data import User
 
 def init_db():

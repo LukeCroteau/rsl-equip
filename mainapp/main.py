@@ -4,6 +4,7 @@ Main program.
 from flask import render_template, redirect, url_for
 from mainapp import db_session, MAIN_APPLICATION, LOGIN_MANAGER
 from mainapp.database import init_db
+from mainapp.data_import import import_static_data
 from mainapp.Models.user_data import User
 
 LOGIN_MANAGER.login_view = '/login'
@@ -28,6 +29,11 @@ def home():
 def database_init():
     init_db()
     return 'Databases Initialized'
+
+@MAIN_APPLICATION.route('/createdb/54*Banana*54')
+def quick_import():
+    import_static_data()
+    return 'Data Imported'
 
 @MAIN_APPLICATION.errorhandler(500)
 def internal_error(error):

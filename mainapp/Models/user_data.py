@@ -2,6 +2,7 @@
 User data schemas
 '''
 from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy.orm import relationship
 from mainapp.database import Base
 
 class User(Base):
@@ -18,6 +19,7 @@ class User(Base):
     google_picture = Column(String)
     is_admin = Column(Boolean)
     is_maintainer = Column(Boolean)
+    accounts = relationship('Account', backref='owner', lazy='dynamic')
 
     def __init__(self, first_name=None, last_name=None, full_name=None, email=None, gender=None, google_id=None,
                  google_link=None, google_picture=None):
