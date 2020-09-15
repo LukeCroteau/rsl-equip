@@ -7,6 +7,8 @@ class AccountHero(Base):
     __tablename__ = 'account_heroes'
     id = Column(Integer, primary_key=True, index=True)
     account_id = Column(Integer, ForeignKey('accounts.id'), index=True)
+    hero_id = Column(Integer, ForeignKey('heroes.id'), index=True)
+    custom_description = Column(String)
 
     def __repr__(self):
         return str.format('<Account {} - {}>', self.name, self.id)

@@ -46,7 +46,7 @@ class Artifact(Base):
     type = Column(Integer, ForeignKey('artifact_types.id'), index=True)
     stars = Column(Integer, index=True)
     level = Column(Integer, index=True)
-    equipped_to = Column(Integer, index=True)
+    equipped_to = Column(Integer, ForeignKey('account_heroes.id'), index=True)
     main_stat = Column(Integer, ForeignKey('stat_types.id'), index=True)
     main_stat_value = Column(Integer)
     sub_stat_1 = Column(Integer, ForeignKey('stat_types.id'), index=True)

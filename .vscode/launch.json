@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": false,
-            "pythonPath": "${config:python.pythonPath}",
+            "pythonPath": "${command:python.interpreterPath}",
             "module": "flask",
             "env": {
                 "FLASK_APP": "${workspaceRoot}\\rslequip.py"
